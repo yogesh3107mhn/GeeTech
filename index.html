@@ -1,0 +1,1507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gee Tech Service · MEI Solutions</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <style>
+    /* ---------- FINAL BRAND PALETTE (Light) ---------- */
+    :root {
+      --primary: #D9635F;
+      --primary-hover: #B8433F;
+      --primary-light: #ECB0AD;
+      --primary-pale: #F8E2E0;
+      --navy: #6F88AC;
+      --navy-pale: #E6ECF4;
+      --beige: #F5EEE6;
+      --cream: #FCFAF7;
+      --text: #172033;
+      --muted: #667085;
+      --border: #E7EAF0;
+      --white: #ffffff;
+      --shadow: 0 12px 32px -12px rgba(111, 136, 172, 0.15);
+      --shadow-hover: 0 24px 48px -16px rgba(111, 136, 172, 0.25);
+      --bg: #FCFAF7;
+      --surface: #ffffff;
+      --surface-2: #F5EEE6;
+      --radius: 28px;
+      --radius-sm: 16px;
+      --transition: 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    /* ---------- DARK THEME ---------- */
+    [data-theme="dark"] {
+      --primary: #D9635F;
+      --primary-hover: #B8433F;
+      --primary-light: #ECB0AD;
+      --primary-pale: #F8E2E0;
+      --navy: #6F88AC;
+      --navy-pale: #E6ECF4;
+      --beige: #F5EEE6;
+      --cream: #FCFAF7;
+      --text: #F5F7FA;
+      --muted: #B7C1CE;
+      --border: #526275;
+      --shadow: 0 12px 32px -12px rgba(0, 0, 0, 0.3);
+      --shadow-hover: 0 24px 48px -16px rgba(0, 0, 0, 0.4);
+      --bg: #26364A;
+      --surface: #304258;
+      --surface-2: #1F2D3D;
+      --white: #ffffff;
+    }
+
+    /* ---------- Reset ---------- */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      transition: background 0.4s, color 0.4s;
+      overflow-x: hidden;
+    }
+    a { text-decoration: none; color: inherit; }
+    h1, h2, h3, h4 { font-family: 'DM Sans', 'Inter', sans-serif; font-weight: 700; letter-spacing: -0.02em; }
+    .container { max-width: 1240px; margin: 0 auto; padding: 0 32px; }
+
+    /* ---------- Scroll Progress ---------- */
+    .scroll-progress {
+      position: fixed; top: 0; left: 0;
+      height: 3px; width: 0%;
+      background: var(--primary);
+      z-index: 1100;
+      transition: width 0.1s;
+    }
+
+    /* ---------- Buttons ---------- */
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+      padding: 12px 28px;
+      border-radius: 60px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      border: none;
+      cursor: pointer;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 8px 20px -10px rgba(217, 99, 95, 0.35);
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, transparent, rgba(255,255,255,0.25), transparent);
+      transform: translateX(-120%);
+      transition: 0.6s;
+    }
+    .btn-primary:hover::before { transform: translateX(120%); }
+    .btn-primary:hover {
+      background: var(--primary-hover);
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 16px 32px -12px var(--primary);
+    }
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--primary);
+      color: var(--primary);
+      padding: 10px 26px;
+      border-radius: 60px;
+      font-weight: 600;
+      transition: var(--transition);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-outline:hover {
+      background: var(--primary);
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    /* ---------- Header ---------- */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(255,255,255,0.82);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.4s, border 0.4s, box-shadow 0.4s;
+      padding: 4px 0;
+    }
+    [data-theme="dark"] header { background: rgba(31, 45, 61, 0.92); }
+    header.scrolled { box-shadow: 0 4px 24px rgba(0,0,0,0.04); }
+    [data-theme="dark"] header.scrolled { box-shadow: 0 4px 24px rgba(0,0,0,0.2); }
+    .nav-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      flex-wrap: wrap;
+    }
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .logo-area img { height: 40px; width: auto; }
+    .brand-wrapper {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+    .brand {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700;
+      font-size: 1.3rem;
+      letter-spacing: -0.3px;
+      color: var(--text);
+    }
+    .brand span { color: var(--primary); }
+    .tagline {
+      font-size: 0.6rem;
+      font-weight: 500;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      color: var(--muted);
+      opacity: 0.7;
+      margin-top: 1px;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      list-style: none;
+    }
+    .nav-links > li { position: relative; }
+    .nav-links a {
+      padding: 8px 16px;
+      font-weight: 500;
+      font-size: 0.9rem;
+      border-radius: 40px;
+      color: var(--text);
+      transition: 0.2s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 2px;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: 0.25s;
+      transform: translateX(-50%);
+      border-radius: 4px;
+    }
+    .nav-links a:hover::after,
+    .nav-links a.active::after { width: 60%; }
+    .nav-links a:hover { background: var(--surface-2); }
+
+    /* ---------- Dropdown (Redesigned) ---------- */
+    .dropdown-menu {
+      position: absolute;
+      top: calc(100% + 14px);
+      left: 50%;
+      transform: translateX(-50%) translateY(10px) scale(0.96);
+      background: var(--surface);
+      box-shadow: var(--shadow-hover);
+      border-radius: 20px;
+      padding: 10px;
+      min-width: 300px;
+      border: 1px solid var(--border);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s cubic-bezier(0.2,0.8,0.2,1), transform 0.3s cubic-bezier(0.2,0.8,0.2,1), visibility 0.3s;
+      pointer-events: none;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 4px;
+    }
+    .dropdown-menu::before {
+      content: '';
+      position: absolute;
+      top: -6px;
+      left: 50%;
+      transform: translateX(-50%) rotate(45deg);
+      width: 14px;
+      height: 14px;
+      background: var(--surface);
+      border-left: 1px solid var(--border);
+      border-top: 1px solid var(--border);
+      border-radius: 3px 0 0 0;
+    }
+    .dropdown-menu.open {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0) scale(1);
+      pointer-events: auto;
+    }
+    .dropdown-menu a {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      font-weight: 500;
+      font-size: 0.88rem;
+      color: var(--text);
+      position: relative;
+      overflow: hidden;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .dropdown-menu a .dd-icon {
+      width: 38px;
+      height: 38px;
+      min-width: 38px;
+      border-radius: 11px;
+      background: var(--surface-2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      font-size: 1rem;
+      transition: 0.3s cubic-bezier(0.2,0.8,0.2,1);
+    }
+    .dropdown-menu a .dd-text { display: flex; flex-direction: column; gap: 1px; }
+    .dropdown-menu a .dd-title { font-weight: 600; color: var(--text); }
+    .dropdown-menu a .dd-sub { font-size: 0.72rem; color: var(--muted); font-weight: 400; }
+    .dropdown-menu a i.dd-arrow {
+      margin-left: auto;
+      font-size: 0.75rem;
+      opacity: 0;
+      transform: translateX(-6px);
+      transition: 0.25s;
+      color: var(--primary);
+    }
+    .dropdown-menu a:hover { background: var(--surface-2); transform: translateX(2px); }
+    .dropdown-menu a:hover .dd-icon {
+      background: var(--primary);
+      color: #fff;
+      transform: rotate(-8deg) scale(1.08);
+    }
+    .dropdown-menu a:hover i.dd-arrow { opacity: 1; transform: translateX(0); }
+    .dropdown-toggle .fa-chevron-down {
+      transition: transform 0.25s;
+      font-size: 0.75rem;
+      margin-left: 4px;
+    }
+    .dropdown-toggle.open .fa-chevron-down {
+      transform: rotate(180deg);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .theme-toggle {
+      background: var(--surface-2);
+      border: none;
+      border-radius: 60px;
+      width: 42px;
+      height: 42px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      color: var(--text);
+      transition: 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .theme-toggle:hover { background: var(--primary); color: #fff; transform: rotate(12deg); }
+    .hamburger {
+      display: none;
+      font-size: 1.6rem;
+      background: none;
+      border: none;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    /* ---------- Floating Buttons ---------- */
+    .floating-buttons {
+      position: fixed;
+      right: 24px;
+      bottom: 120px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      z-index: 999;
+    }
+    .floating-buttons a {
+      width: 56px;
+      height: 56px;
+      border-radius: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      color: #fff;
+      box-shadow: 0 12px 28px -10px rgba(0,0,0,0.25);
+      transition: 0.25s;
+      animation: pulse-float 2.6s infinite;
+    }
+    .floating-buttons a.whatsapp { background: #25D366; }
+    .floating-buttons a.phone { background: var(--navy); }
+    .floating-buttons a:hover { transform: scale(1.12) translateY(-4px); }
+    @keyframes pulse-float {
+      0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.35); }
+      70% { box-shadow: 0 0 0 16px rgba(37, 211, 102, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+    }
+
+    /* ---------- Back to Top ---------- */
+    .back-top {
+      position: fixed;
+      bottom: 30px;
+      left: 24px;
+      width: 48px;
+      height: 48px;
+      border-radius: 60px;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      font-size: 1.3rem;
+      cursor: pointer;
+      box-shadow: 0 8px 20px -8px rgba(217, 99, 95, 0.4);
+      transition: 0.3s;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .back-top.visible { opacity: 1; pointer-events: auto; }
+    .back-top:hover { transform: translateY(-4px) scale(1.05); }
+
+    /* ---------- Sections ---------- */
+    section { padding: 80px 0; position: relative; }
+    .section-eyebrow {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 8px;
+      opacity: 0;
+      animation: fadeUp 0.6s forwards 0.2s;
+    }
+    .section-title {
+      font-size: 2.6rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--text);
+    }
+    .section-title span { color: var(--primary); }
+
+    /* ---------- Hero with CLEAR Background Image ---------- */
+    .hero {
+      padding: 40px 0 64px;
+      background: var(--bg);
+      position: relative;
+      overflow: hidden;
+      min-height: 85vh;
+      display: flex;
+      align-items: center;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url('image1.png') center right / cover no-repeat;
+      z-index: 0;
+      transition: opacity 0.4s;
+    }
+    /* Clean glass panel behind text for readability */
+    .hero-content-wrapper {
+      background: rgba(255, 255, 255, 0.78);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-radius: var(--radius);
+      padding: 48px 52px;
+      max-width: 620px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 20px 60px -20px rgba(0, 0, 0, 0.12);
+      transition: background 0.4s, border 0.4s;
+    }
+    [data-theme="dark"] .hero-content-wrapper {
+      background: rgba(38, 54, 74, 0.82);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      box-shadow: 0 20px 60px -20px rgba(0, 0, 0, 0.3);
+    }
+    .hero-inner {
+      display: flex;
+      align-items: center;
+      gap: 48px;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 2;
+      width: 100%;
+    }
+    .hero-content {
+      flex: 1 1 480px;
+    }
+    .hero-badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      color: var(--primary);
+      background: var(--primary-pale);
+      padding: 4px 18px;
+      border-radius: 40px;
+      margin-bottom: 20px;
+      opacity: 0;
+      animation: fadeUp 0.6s forwards 0.1s;
+    }
+    [data-theme="dark"] .hero-badge {
+      background: rgba(217, 99, 95, 0.2);
+      color: var(--primary-light);
+    }
+    .hero-content h1 {
+      font-size: 3.6rem;
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      opacity: 0;
+      animation: fadeUp 0.8s forwards 0.2s;
+    }
+    .hero-content h1 .highlight { color: var(--primary); }
+    .hero-content p {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 540px;
+      margin: 20px 0 28px;
+      line-height: 1.7;
+      opacity: 0;
+      animation: fadeUp 0.8s forwards 0.3s;
+    }
+    .hero-cta-row { display: flex; gap: 14px; flex-wrap: wrap; opacity: 0; animation: fadeUp 0.8s forwards 0.4s; }
+    .hero-stats {
+      display: flex;
+      gap: 40px;
+      margin-top: 40px;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.8s forwards 0.5s;
+    }
+    .hero-stats .stat { display: flex; flex-direction: column; }
+    .hero-stats .stat-num {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .hero-stats .stat-label { font-size: 0.85rem; color: var(--muted); }
+
+    /* ---------- About ---------- */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px;
+      align-items: center;
+    }
+    .about-grid img {
+      width: 100%;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      transition: var(--transition);
+    }
+    .about-grid img:hover { transform: scale(1.02) rotate(-0.5deg); box-shadow: var(--shadow-hover); }
+    .about-points { display: flex; flex-direction: column; gap: 12px; margin: 24px 0 28px; }
+    .about-point { display: flex; align-items: flex-start; gap: 12px; }
+    .about-point i { color: var(--primary); margin-top: 3px; }
+
+    /* ---------- Services (Redesigned - professional) ---------- */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+      margin-top: 40px;
+    }
+    .service-card {
+      background: var(--surface);
+      padding: 0;
+      border-radius: 22px;
+      border: 1px solid var(--border);
+      transition: var(--transition);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(30px);
+      display: flex;
+      flex-direction: column;
+    }
+    .service-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .service-card:nth-child(1) { transition-delay: 0.05s; }
+    .service-card:nth-child(2) { transition-delay: 0.15s; }
+    .service-card:nth-child(3) { transition-delay: 0.25s; }
+    .service-card:nth-child(4) { transition-delay: 0.35s; }
+    .service-card-top {
+      padding: 30px 26px 22px;
+      position: relative;
+      z-index: 1;
+    }
+    .service-index {
+      position: absolute;
+      top: 18px;
+      right: 22px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: var(--border);
+      transition: color 0.35s;
+    }
+    [data-theme="dark"] .service-index { color: var(--surface-2); }
+    .service-card:hover .service-index { color: var(--primary-light); }
+    .service-icon {
+      width: 54px;
+      height: 54px;
+      border-radius: 15px;
+      background: var(--surface-2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      transition: 0.35s cubic-bezier(0.2,0.8,0.2,1);
+      position: relative;
+    }
+    .service-card:hover .service-icon {
+      background: var(--primary);
+      transform: rotate(-6deg) scale(1.08);
+      box-shadow: 0 10px 22px -8px var(--primary);
+    }
+    .service-icon i { font-size: 1.35rem; color: var(--primary); transition: 0.3s; }
+    .service-card:hover .service-icon i { color: #fff; }
+    .service-card h3 { font-size: 1.15rem; margin-bottom: 8px; letter-spacing: -0.01em; }
+    .service-card p { color: var(--muted); font-size: 0.9rem; line-height: 1.65; }
+    .service-card-bottom {
+      margin-top: auto;
+      padding: 16px 26px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: 0.3s;
+    }
+    .service-card-bottom .sc-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text);
+      transition: color 0.3s;
+    }
+    .service-card-bottom .sc-arrow {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--surface-2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      font-size: 0.75rem;
+      transition: 0.3s cubic-bezier(0.2,0.8,0.2,1);
+    }
+    .service-card:hover .service-card-bottom { background: var(--primary-pale); border-color: transparent; }
+    [data-theme="dark"] .service-card:hover .service-card-bottom { background: rgba(217,99,95,0.14); }
+    .service-card:hover .service-card-bottom .sc-label { color: var(--primary-hover); }
+    [data-theme="dark"] .service-card:hover .service-card-bottom .sc-label { color: var(--primary-light); }
+    .service-card:hover .service-card-bottom .sc-arrow {
+      background: var(--primary);
+      color: #fff;
+      transform: translateX(4px) rotate(-45deg);
+    }
+    .service-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-hover);
+      border-color: transparent;
+    }
+
+    /* ---------- Clients ---------- */
+    .clients-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      margin-top: 32px;
+    }
+    .client-card {
+      background: var(--surface);
+      padding: 32px 24px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 12px;
+      cursor: pointer;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    .client-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .client-card:nth-child(1) { transition-delay: 0.05s; }
+    .client-card:nth-child(2) { transition-delay: 0.15s; }
+    .client-card:nth-child(3) { transition-delay: 0.25s; }
+    .client-card:hover {
+      transform: translateY(-10px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--primary);
+    }
+    .client-card img {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+      background: var(--surface-2);
+      padding: 12px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      transition: 0.3s;
+    }
+    .client-card:hover img { transform: scale(1.05); border-color: var(--primary); }
+    .client-card h3 { font-size: 1.2rem; margin-bottom: 2px; }
+    .client-tag { font-size: 0.7rem; font-weight: 600; color: var(--primary); text-transform: uppercase; letter-spacing: 0.4px; }
+    .client-card p { color: var(--muted); font-size: 0.9rem; line-height: 1.5; margin: 0; }
+    .client-arrow {
+      color: var(--primary);
+      font-weight: 600;
+      font-size: 0.85rem;
+      opacity: 0.6;
+      transition: 0.3s;
+    }
+    .client-card:hover .client-arrow { opacity: 1; transform: translateX(4px); }
+
+    /* ---------- Contact ---------- */
+    .contact-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 48px;
+      background: var(--surface);
+      padding: 44px 48px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+    }
+    .contact-wrap:hover { box-shadow: var(--shadow-hover); }
+    .contact-info p { display: flex; gap: 14px; align-items: center; margin: 12px 0; }
+    .contact-info i { color: var(--primary); width: 24px; }
+    .contact-social { display: flex; gap: 12px; margin-top: 28px; }
+    .contact-social a {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      background: var(--surface-2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      transition: 0.2s;
+    }
+    .contact-social a:hover { background: var(--primary); color: #fff; transform: translateY(-4px) rotate(4deg); }
+    .form-group { margin-bottom: 16px; }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 14px 18px;
+      border-radius: 24px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 0.95rem;
+      font-family: 'Inter', sans-serif;
+      transition: 0.2s;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(217, 99, 95, 0.08);
+      transform: translateY(-1px);
+    }
+
+    /* ---------- Footer ---------- */
+    footer {
+      background: #1F2D3D;
+      color: #B7C1CE;
+      padding: 60px 0 24px;
+      margin-top: 20px;
+      transition: background 0.4s, color 0.4s;
+    }
+    [data-theme="dark"] footer { background: #1F2D3D; color: #B7C1CE; }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+    .footer-brand h4 {
+      color: #F5F7FA;
+      font-size: 1.4rem;
+      margin-bottom: 8px;
+    }
+    .footer-brand p {
+      opacity: 0.6;
+      font-size: 0.9rem;
+      max-width: 260px;
+    }
+    .footer-col h4 {
+      color: #F5F7FA;
+      font-size: 0.95rem;
+      margin-bottom: 16px;
+      font-weight: 600;
+    }
+    .footer-col a {
+      display: block;
+      margin: 8px 0;
+      opacity: 0.6;
+      color: #B7C1CE;
+      font-size: 0.9rem;
+      transition: 0.2s;
+    }
+    .footer-col a:hover {
+      opacity: 1;
+      color: var(--primary);
+      padding-left: 4px;
+    }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding-top: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-bottom .copyright {
+      opacity: 0.4;
+      font-size: 0.85rem;
+    }
+    .footer-social {
+      display: flex;
+      gap: 12px;
+    }
+    .footer-social a {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.06);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #B7C1CE;
+      transition: 0.2s;
+      font-size: 1.1rem;
+    }
+    .footer-social a:hover {
+      background: var(--primary);
+      color: #fff;
+      transform: translateY(-3px);
+    }
+
+    /* ---------- Animations ---------- */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .reveal { opacity: 0; transform: translateY(40px); transition: 0.8s cubic-bezier(0.15, 0.85, 0.3, 1); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    .toast {
+      background: var(--surface);
+      color: var(--text);
+      padding: 14px 32px;
+      border-radius: 60px;
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-weight: 600;
+      z-index: 9999;
+      box-shadow: 0 12px 28px -12px rgba(0,0,0,0.3);
+      border: 1px solid var(--border);
+      animation: toastIn 0.4s ease;
+    }
+    @keyframes toastIn { from { opacity: 0; transform: translateX(-50%) translateY(20px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 1080px) {
+      .hero-content h1 { font-size: 3.1rem; }
+      .footer-grid { grid-template-columns: 1.4fr 1fr 1fr; }
+      .footer-brand { grid-column: 1 / -1; }
+    }
+    @media (max-width: 900px) {
+      .nav-links {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+        background: var(--surface);
+        padding: 12px;
+        border-radius: var(--radius);
+        margin-top: 10px;
+        border: 1px solid var(--border);
+      }
+      .nav-links.open { display: flex; }
+      .nav-links a { border-radius: 12px; padding: 12px 14px; }
+      .hamburger { display: block; }
+      /* Mobile dropdown - full width, clean */
+      .dropdown-menu {
+        position: static;
+        transform: none;
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        box-shadow: none;
+        background: var(--surface-2);
+        margin: 6px 0 6px 12px;
+        padding: 6px;
+        border: none;
+        min-width: auto;
+        max-height: 0;
+        overflow: hidden;
+        display: grid;
+        transition: max-height 0.4s cubic-bezier(0.2,0.8,0.2,1), padding 0.3s, margin 0.3s;
+        border-radius: 14px;
+      }
+      .dropdown-menu::before { display: none; }
+      .dropdown-menu.open {
+        max-height: 400px;
+        padding: 8px;
+        margin: 6px 0 6px 12px;
+      }
+      .dropdown-menu a {
+        padding: 10px 12px;
+        border-radius: 10px;
+      }
+      .dropdown-menu a .dd-icon {
+        width: 34px;
+        height: 34px;
+        min-width: 34px;
+        font-size: 0.85rem;
+      }
+      .dropdown-menu a .dd-sub { font-size: 0.68rem; }
+      .dropdown-toggle .fa-chevron-down { transform: none; }
+      .dropdown-toggle.open .fa-chevron-down { transform: rotate(180deg); }
+      /* Close any open dropdown when clicking outside */
+      .hero { min-height: auto; padding: 32px 0 48px; }
+      .hero-inner { flex-direction: column; }
+      .hero-content h1 { font-size: 2.5rem; }
+      .hero-content-wrapper {
+        padding: 32px 28px;
+        max-width: 100%;
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+      }
+      .hero-stats { gap: 28px; }
+      .about-grid { grid-template-columns: 1fr; gap: 36px; }
+      .contact-wrap { grid-template-columns: 1fr; padding: 28px; }
+      .clients-grid { grid-template-columns: 1fr; max-width: 420px; margin-left: auto; margin-right: auto; }
+      .floating-buttons { right: 12px; bottom: 100px; }
+      .floating-buttons a { width: 48px; height: 48px; font-size: 1.4rem; }
+      .back-top { left: 12px; bottom: 100px; width: 42px; height: 42px; font-size: 1.1rem; }
+      .hero-bg { background-position: 60% center !important; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 30px; }
+      .footer-brand { grid-column: 1 / -1; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+      section { padding: 60px 0; }
+      .section-title { font-size: 2.1rem; }
+    }
+    @media (max-width: 600px) {
+      .container { padding: 0 18px; }
+      .section-title { font-size: 1.8rem; }
+      .hero-content h1 { font-size: 1.9rem; }
+      .hero-content-wrapper {
+        padding: 24px 20px;
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+      }
+      .hero-cta-row { flex-direction: column; align-items: stretch; }
+      .hero-cta-row a { justify-content: center; }
+      .hero-stats { gap: 20px 28px; }
+      .contact-wrap { padding: 20px; }
+      .clients-grid { max-width: 100%; }
+      .hero-bg { background-position: 50% center !important; }
+      .services-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+      .logo-area img { height: 34px; }
+      .brand { font-size: 1.1rem; }
+      .nav-actions .btn-primary span.book-label { display: none; }
+      .dropdown-menu { margin: 4px 0 4px 8px; }
+      .dropdown-menu a { padding: 8px 10px; }
+      .dropdown-menu a .dd-icon { width: 30px; height: 30px; min-width: 30px; font-size: 0.75rem; }
+    }
+    @media (max-width: 380px) {
+      .hero-content h1 { font-size: 1.65rem; }
+      .container { padding: 0 14px; }
+    }
+
+    /* ---------- Loader ---------- */
+    #loader {
+      position: fixed;
+      inset: 0;
+      background: var(--cream);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+    }
+    #loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+    #loader img { height: 64px; margin-bottom: 16px; }
+    #loader h2 { font-size: 1.8rem; color: var(--text); }
+    #loader h2 span { color: var(--primary); }
+    #loader p { color: var(--muted); font-size: 0.9rem; letter-spacing: 2px; margin-top: 4px; }
+    [data-theme="dark"] #loader { background: var(--bg); }
+  </style>
+</head>
+<body>
+  <!-- Loader -->
+  <div id="loader">
+    <img src="logo.png" alt="Gee Tech Service" />
+    <h2>GEE TECH <span>SERVICE</span></h2>
+    <p>MEI SOLUTIONS</p>
+  </div>
+
+  <!-- Scroll Progress -->
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <!-- Floating Buttons -->
+  <div class="floating-buttons">
+    <a href="#" class="whatsapp" aria-label="WhatsApp" onclick="window.open('https://wa.me/YOUR_WHATSAPP_NUMBER','_blank')"><i class="fab fa-whatsapp"></i></a>
+    <a href="#" class="phone" aria-label="Call" onclick="window.location.href='tel:YOUR_PHONE_NUMBER'"><i class="fas fa-phone-alt"></i></a>
+  </div>
+
+  <!-- Back to Top -->
+  <button class="back-top" id="backTop" aria-label="Back to top"><i class="fas fa-chevron-up"></i></button>
+
+  <!-- Header -->
+  <header id="mainHeader">
+    <div class="container nav-container">
+      <div class="logo-area">
+        <img src="logo.png" alt="Gee Tech Service" />
+        <div class="brand-wrapper">
+          <div class="brand">GEE TECH <span>SERVICE</span></div>
+          <div class="tagline">Skilled Hands, Solid Results</div>
+        </div>
+      </div>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li class="dropdown-toggle" id="servicesDropdown">
+          <a href="#" id="servicesLink">Services <i class="fas fa-chevron-down"></i></a>
+          <div class="dropdown-menu" id="dropdownMenu">
+            <a href="instrumentation.html">
+              <span class="dd-icon"><i class="fas fa-microchip"></i></span>
+              <span class="dd-text"><span class="dd-title">Instrumentation</span><span class="dd-sub">Panels, calibration & commissioning</span></span>
+              <i class="fas fa-arrow-right dd-arrow"></i>
+            </a>
+            <a href="electrical.html">
+              <span class="dd-icon"><i class="fas fa-bolt"></i></span>
+              <span class="dd-text"><span class="dd-title">Electrical</span><span class="dd-sub">Wiring, termination & erection</span></span>
+              <i class="fas fa-arrow-right dd-arrow"></i>
+            </a>
+            <a href="mechanical.html">
+              <span class="dd-icon"><i class="fas fa-cogs"></i></span>
+              <span class="dd-text"><span class="dd-title">Mechanical</span><span class="dd-sub">Pipeline, equipment & welding</span></span>
+              <i class="fas fa-arrow-right dd-arrow"></i>
+            </a>
+            <a href="container-works.html">
+              <span class="dd-icon"><i class="fas fa-warehouse"></i></span>
+              <span class="dd-text"><span class="dd-title">Container Works</span><span class="dd-sub">Fabrication & modification</span></span>
+              <i class="fas fa-arrow-right dd-arrow"></i>
+            </a>
+          </div>
+        </li>
+        <li><a href="clients.html">Clients</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="#contact" class="btn-primary" style="padding:8px 20px;font-size:0.85rem;"><i class="fas fa-calendar-check"></i> <span class="book-label">Book</span></a>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"><i class="fas fa-moon"></i></button>
+        <button class="hamburger" id="hamburger"><i class="fas fa-bars"></i></button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO with CLEAR Background Image & Glass Panel -->
+    <section class="hero">
+      <div class="hero-bg"></div>
+      <div class="container hero-inner">
+        <div class="hero-content">
+          <div class="hero-content-wrapper">
+            <div class="hero-badge"><i class="fas fa-cog" style="margin-right:6px;"></i> Our Expertise</div>
+            <h1>Engineering<br /><span class="highlight">Reliability.</span><br />Delivering Trust.</h1>
+            <p>Gee Tech Service is a multi-disciplinary technical service provider specializing in Mechanical, Electrical, and Instrumentation (MEI) solutions. With 25 years of industry experience, we support businesses across their entire project lifecycle — from installation to maintenance to breakdown support — so their operations run safely, efficiently, and without unplanned downtime.</p>
+            <div class="hero-cta-row">
+              <a href="services.html" class="btn-primary"><i class="fas fa-arrow-right"></i> Explore Services</a>
+              <a href="#contact" class="btn-outline"><i class="fas fa-calendar-check"></i> Book an Appointment</a>
+            </div>
+            <div class="hero-stats">
+              <div class="stat"><span class="stat-num">25+</span><span class="stat-label">Years of Industry Experience</span></div>
+              <div class="stat"><span class="stat-num">MEI</span><span class="stat-label">Solutions</span></div>
+              <div class="stat"><span class="stat-num">Trusted</span><span class="stat-label">Execution</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" style="background:var(--surface-2);">
+      <div class="container about-grid reveal">
+        <div>
+          <div class="section-eyebrow">About</div>
+          <h2 class="section-title">About <span>Gee Tech</span></h2>
+          <p style="font-size:1.05rem;color:var(--muted);line-height:1.7;">Gee Tech Service is a multi-disciplinary technical service provider delivering Mechanical, Electrical, and Instrumentation solutions with a focus on safety, precision, and reliability.</p>
+          <div class="about-points">
+            <div class="about-point"><i class="fas fa-check-circle"></i><span>25 years of industry experience</span></div>
+            <div class="about-point"><i class="fas fa-check-circle"></i><span>Mechanical, Electrical & Instrumentation expertise</span></div>
+            <div class="about-point"><i class="fas fa-check-circle"></i><span>End-to-end technical execution</span></div>
+            <div class="about-point"><i class="fas fa-check-circle"></i><span>Reliable industrial support</span></div>
+          </div>
+          <a href="about.html" class="btn-outline">Read More <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div style="position:relative;">
+          <img src="image2.png" alt="About us" />
+          <div style="position:absolute; bottom:20px; left:-10px; background:var(--primary); color:#fff; padding:10px 24px; border-radius:60px; font-weight:700; font-size:1.1rem; box-shadow:0 8px 24px -8px var(--primary);">
+            25+ YEARS
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES (Redesigned) -->
+    <section id="services">
+      <div class="container reveal">
+        <div class="section-eyebrow">Services</div>
+        <h2 class="section-title">Our <span>services</span></h2>
+        <p style="max-width:600px;color:var(--muted);font-size:1rem;">Integrated technical solutions built around precision, reliability, and practical field expertise.</p>
+        <div class="services-grid" id="servicesGrid">
+          <a href="instrumentation.html" class="service-card">
+            <div class="service-card-top">
+              <span class="service-index">01</span>
+              <div class="service-icon"><i class="fas fa-microchip"></i></div>
+              <h3>Instrumentation</h3>
+              <p>IC panels, calibration, tray installation, wiring & commissioning.</p>
+            </div>
+            <div class="service-card-bottom">
+              <span class="sc-label">Explore service</span>
+              <span class="sc-arrow"><i class="fas fa-arrow-right"></i></span>
+            </div>
+          </a>
+          <a href="electrical.html" class="service-card">
+            <div class="service-card-top">
+              <span class="service-index">02</span>
+              <div class="service-icon"><i class="fas fa-bolt"></i></div>
+              <h3>Electrical</h3>
+              <p>Panel work, cable tray laying, dressing, termination & erection.</p>
+            </div>
+            <div class="service-card-bottom">
+              <span class="sc-label">Explore service</span>
+              <span class="sc-arrow"><i class="fas fa-arrow-right"></i></span>
+            </div>
+          </a>
+          <a href="mechanical.html" class="service-card">
+            <div class="service-card-top">
+              <span class="service-index">03</span>
+              <div class="service-icon"><i class="fas fa-cogs"></i></div>
+              <h3>Mechanical</h3>
+              <p>Equipment positioning, pipeline, compressor, platform & welding.</p>
+            </div>
+            <div class="service-card-bottom">
+              <span class="sc-label">Explore service</span>
+              <span class="sc-arrow"><i class="fas fa-arrow-right"></i></span>
+            </div>
+          </a>
+          <a href="container-works.html" class="service-card">
+            <div class="service-card-top">
+              <span class="service-index">04</span>
+              <div class="service-icon"><i class="fas fa-warehouse"></i></div>
+              <h3>Container Works</h3>
+              <p>Fabrication, modification, erection & shifting of container units.</p>
+            </div>
+            <div class="service-card-bottom">
+              <span class="sc-label">Explore service</span>
+              <span class="sc-arrow"><i class="fas fa-arrow-right"></i></span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CLIENTS -->
+    <section id="clients" style="background:var(--surface-2);">
+      <div class="container reveal">
+        <div class="section-eyebrow">Clients</div>
+        <h2 class="section-title">Trusted <span>by</span></h2>
+        <p style="max-width:600px;color:var(--muted);font-size:1rem;">Though we work with a focused set of partners, our consistency and technical reliability have made us a trusted long-term service provider at some of the industry's most demanding facilities.</p>
+        <div class="clients-grid" id="clientsGrid">
+          <a href="clients.html#orchid" class="client-card">
+            <img src="client1.png" alt="Orchid Pharma" />
+            <h3>Orchid Pharma</h3>
+            <span class="client-tag">Pharmaceuticals</span>
+            <p>Partnered for critical plant instrumentation and calibration across Chennai facilities.</p>
+            <span class="client-arrow">View Client →</span>
+          </a>
+          <a href="clients.html#covestro" class="client-card">
+            <img src="client2.png" alt="Covestro" />
+            <h3>Covestro</h3>
+            <span class="client-tag">Polymers</span>
+            <p>Global polymer manufacturer relying on our electrical and mechanical teams for planned shutdowns.</p>
+            <span class="client-arrow">View Client →</span>
+          </a>
+          <a href="clients.html#arkema" class="client-card">
+            <img src="client3.png" alt="Arkema" />
+            <h3>Arkema</h3>
+            <span class="client-tag">Specialty Chemicals</span>
+            <p>We handle container fabrication and structural works across their industrial sites.</p>
+            <span class="client-arrow">View Client →</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" style="background:var(--cream);">
+      <div class="container reveal">
+        <div class="section-eyebrow">Contact</div>
+        <h2 class="section-title">Get in <span>touch</span></h2>
+        <p style="max-width:600px;color:var(--muted);font-size:1rem;">Have a project in mind or need technical support? Get in touch with our team.</p>
+        <div class="contact-wrap">
+          <div class="contact-info">
+            <h3 style="font-size:1.6rem;margin-bottom:20px;">Reach out</h3>
+            <p><i class="fas fa-map-pin"></i> 42 Industrial Rd, Chennai, India</p>
+            <p><i class="fas fa-phone-alt"></i> +91 98765 43210</p>
+            <p><i class="fas fa-envelope"></i> hello@geetechservice.com</p>
+            <p><i class="fas fa-clock"></i> Mon–Sat 8:00 – 18:00</p>
+            <div class="contact-social">
+              <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+              <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            </div>
+          </div>
+          <form id="contactForm">
+            <div class="form-group"><input type="text" name="name" placeholder="Full Name *" required /></div>
+            <div class="form-group"><input type="text" name="company" placeholder="Company Name" /></div>
+            <div class="form-group"><input type="email" name="email" placeholder="Email Address *" required /></div>
+            <div class="form-group"><input type="tel" name="phone" placeholder="Phone Number" /></div>
+            <div class="form-group">
+              <select name="service">
+                <option value="">Service Required</option>
+                <option>Instrumentation</option>
+                <option>Electrical</option>
+                <option>Mechanical</option>
+                <option>Container Works</option>
+              </select>
+            </div>
+            <div class="form-group"><textarea name="message" rows="3" placeholder="Your message..."></textarea></div>
+            <button type="submit" class="btn-primary" style="width:100%;justify-content:center;"><i class="fas fa-paper-plane"></i> Send Enquiry</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h4>GEE TECH SERVICE</h4>
+          <p>Skilled Hands, Solid Results — MEI solutions since 1998</p>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <a href="index.html">Home</a>
+          <a href="about.html">About</a>
+          <a href="clients.html">Clients</a>
+          <a href="#contact">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <a href="instrumentation.html">Instrumentation</a>
+          <a href="electrical.html">Electrical</a>
+          <a href="mechanical.html">Mechanical</a>
+          <a href="container-works.html">Container Works</a>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <a href="#contact">Book Appointment</a>
+          <a href="#">+91 98765 43210</a>
+          <a href="#">hello@geetechservice.com</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span class="copyright">© 2026 Gee Tech Service. All Rights Reserved.</span>
+        <div class="footer-social">
+          <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- EmailJS -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script>
+    (function() {
+      // ----- Loader -----
+      window.addEventListener('load', () => {
+        document.getElementById('loader').classList.add('hidden');
+      });
+
+      // ----- Theme -----
+      const root = document.documentElement;
+      const themeBtn = document.getElementById('themeToggle');
+      const themeIcon = themeBtn.querySelector('i');
+
+      function applyTheme(theme) {
+        if (theme === 'dark') {
+          root.setAttribute('data-theme', 'dark');
+          themeIcon.className = 'fas fa-sun';
+          localStorage.setItem('theme', 'dark');
+        } else {
+          root.removeAttribute('data-theme');
+          themeIcon.className = 'fas fa-moon';
+          localStorage.setItem('theme', 'light');
+        }
+      }
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme) applyTheme(savedTheme);
+      else {
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        applyTheme(prefersDark ? 'dark' : 'light');
+      }
+      themeBtn.addEventListener('click', () => {
+        const isDark = root.getAttribute('data-theme') === 'dark';
+        applyTheme(isDark ? 'light' : 'dark');
+      });
+
+      // ----- Header scroll shadow -----
+      const header = document.getElementById('mainHeader');
+      window.addEventListener('scroll', () => {
+        header.classList.toggle('scrolled', window.scrollY > 20);
+      }, { passive: true });
+
+      // ----- Hamburger -----
+      const hamburger = document.getElementById('hamburger');
+      const navLinks = document.getElementById('navLinks');
+      hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
+
+      // ----- Dropdown (works on both desktop and mobile) -----
+      const dropdownToggle = document.getElementById('servicesDropdown');
+      const dropdownMenu = document.getElementById('dropdownMenu');
+      const servicesLink = document.getElementById('servicesLink');
+      let dropdownOpen = false;
+      let isDesktop = window.innerWidth > 900;
+      let hoverCloseTimer = null;
+
+      function openDropdown() {
+        clearTimeout(hoverCloseTimer);
+        dropdownMenu.classList.add('open');
+        dropdownToggle.classList.add('open');
+        dropdownOpen = true;
+      }
+      function closeDropdown() {
+        dropdownMenu.classList.remove('open');
+        dropdownToggle.classList.remove('open');
+        dropdownOpen = false;
+      }
+      function toggleDropdownClick(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (dropdownOpen) {
+          closeDropdown();
+        } else {
+          openDropdown();
+        }
+      }
+
+      // Desktop: hover + click
+      function bindDesktopDropdown() {
+        servicesLink.addEventListener('click', toggleDropdownClick);
+        dropdownToggle.addEventListener('mouseenter', openDropdown);
+        dropdownToggle.addEventListener('mouseleave', () => {
+          hoverCloseTimer = setTimeout(closeDropdown, 200);
+        });
+        // Click outside to close
+        document.addEventListener('click', function(e) {
+          if (dropdownOpen && !dropdownToggle.contains(e.target)) {
+            closeDropdown();
+          }
+        });
+        // ESC key to close
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape' && dropdownOpen) closeDropdown();
+        });
+      }
+
+      // Mobile: click to toggle
+      function bindMobileDropdown() {
+        servicesLink.addEventListener('click', toggleDropdownClick);
+        // Click outside to close
+        document.addEventListener('click', function(e) {
+          if (dropdownOpen && !dropdownToggle.contains(e.target)) {
+            closeDropdown();
+          }
+        });
+      }
+
+      // Initial binding based on screen size
+      if (isDesktop) {
+        bindDesktopDropdown();
+      } else {
+        bindMobileDropdown();
+      }
+
+      // Handle resize (re-evaluate desktop/mobile binding)
+      let resizeTimeout;
+      window.addEventListener('resize', function() {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(function() {
+          const nowDesktop = window.innerWidth > 900;
+          if (nowDesktop !== isDesktop) {
+            isDesktop = nowDesktop;
+            // Remove all listeners
+            servicesLink.removeEventListener('click', toggleDropdownClick);
+            dropdownToggle.removeEventListener('mouseenter', openDropdown);
+            dropdownToggle.removeEventListener('mouseleave', () => {});
+            // Close dropdown
+            closeDropdown();
+            // Re-bind
+            if (isDesktop) {
+              bindDesktopDropdown();
+            } else {
+              bindMobileDropdown();
+            }
+          }
+        }, 200);
+      });
+
+      // ----- Smooth anchor scroll -----
+      document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', function(e) {
+          const href = this.getAttribute('href');
+          if (href === '#') return;
+          e.preventDefault();
+          const target = document.querySelector(href);
+          if (target) target.scrollIntoView({ behavior: 'smooth' });
+          navLinks.classList.remove('open');
+          closeDropdown();
+        });
+      });
+
+      // Close mobile menu when clicking a link
+      document.querySelectorAll('.nav-links a:not(#servicesLink)').forEach(a => {
+        a.addEventListener('click', function() {
+          navLinks.classList.remove('open');
+        });
+      });
+
+      // ----- Scroll reveal -----
+      const reveals = document.querySelectorAll('.reveal');
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) entry.target.classList.add('visible');
+        });
+      }, { threshold: 0.12 });
+      reveals.forEach(el => observer.observe(el));
+
+      // ----- Service & Client card staggered reveal -----
+      const cardObserver = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) entry.target.classList.add('visible');
+        });
+      }, { threshold: 0.15 });
+      document.querySelectorAll('.service-card, .client-card').forEach(el => cardObserver.observe(el));
+
+      // ----- Scroll progress -----
+      const progressBar = document.getElementById('scrollProgress');
+      window.addEventListener('scroll', () => {
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+        progressBar.style.width = pct + '%';
+      }, { passive: true });
+
+      // ----- Back to Top -----
+      const backTop = document.getElementById('backTop');
+      window.addEventListener('scroll', () => {
+        backTop.classList.toggle('visible', window.scrollY > 500);
+      }, { passive: true });
+      backTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+      // ----- Active nav state -----
+      const sections = document.querySelectorAll('section[id]');
+      window.addEventListener('scroll', () => {
+        let current = '';
+        sections.forEach(sec => {
+          const top = sec.offsetTop - 120;
+          if (window.scrollY >= top) current = sec.id;
+        });
+        document.querySelectorAll('.nav-links a').forEach(a => {
+          a.classList.remove('active');
+          if (a.getAttribute('href') === '#' + current) a.classList.add('active');
+          if (current === '' && a.getAttribute('href') === 'index.html') a.classList.add('active');
+        });
+      }, { passive: true });
+
+      // ----- Contact form (EmailJS) -----
+      const form = document.getElementById('contactForm');
+      // Replace with your keys
+      // emailjs.init("YOUR_PUBLIC_KEY");
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        // Uncomment below for production
+        // emailjs.sendForm("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", this)
+        //   .then(() => { showToast('✅ Message sent successfully!'); form.reset(); })
+        //   .catch(() => { showToast('❌ Error sending message. Please try again.'); });
+        showToast('✅ Message sent successfully!');
+        form.reset();
+      });
+
+      function showToast(msg) {
+        const existing = document.querySelector('.toast');
+        if (existing) existing.remove();
+        const toast = document.createElement('div');
+        toast.className = 'toast';
+        toast.textContent = msg;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 4000);
+      }
+    })();
+  </script>
+</body>
+</html>
